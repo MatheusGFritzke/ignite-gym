@@ -62,7 +62,13 @@ export function SignUp() {
           <Button title="Criar e acessar" />
         </Center>
 
-        <Center px={10} flex={1} justifyContent="flex-end" mb={6}>
+        <Center
+          px={10}
+          flex={1}
+          justifyContent="flex-end"
+          mb={6}
+          mt={4}
+        >
           <Button
             title="Voltar para o login"
             variant="outline"
