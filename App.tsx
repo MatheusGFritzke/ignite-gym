@@ -16,8 +16,6 @@ export default function App() {
     Roboto_700Bold,
   })
 
-  console.log(fontsLoaded);
-
   return (
     <NativeBaseProvider theme={THEME}>
       <StatusBar
