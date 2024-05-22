@@ -8,6 +8,11 @@ import { useNavigation } from "@react-navigation/native"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useForm, Controller } from "react-hook-form"
+import { api } from "@services/api"
+import { AppError } from "@utils/AppError"
+import { Toast } from "native-base"
+import { useState } from "react"
+import { useAuth } from "@hooks/useAuth"
 
 
 type FormDataProps = {
@@ -18,13 +23,28 @@ type FormDataProps = {
 }
 
 const signUpSchema = yup.object().shape({
-  name: yup.string().required("Informe o nome."),
-  email: yup.string().email("E-mail o inválido.").required("Informe o e-mail."),
-  password: yup.string().required("Informe a senha.").min(8, "Minimo de 8 caracteres."),
-  password_confirm: yup.string().required("Informe a senha.").oneOf([yup.ref('password')], "A confirmação da senha não confere.")
+  name: yup
+    .string()
+    .required("Informe o nome."),
+  email: yup.
+    string()
+    .email("E-mail o inválido.")
+    .required("Informe o e-mail."),
+  password: yup
+    .string()
+    .required("Informe a senha.")
+    .min(8, "Minimo de 8 caracteres."),
+  password_confirm: yup
+    .string()
+    .required("Informe a senha.")
+    .oneOf([yup.ref('password')], "A confirmação da senha não confere.")
 })
 
 export function SignUp() {
+
+  const [loading, setLoading] = useState(false)
+
+  const { signIn } = useAuth()
 
   const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
     defaultValues: {
@@ -42,13 +62,27 @@ export function SignUp() {
     navigation.goBack()
   }
 
-  function handleSignUp({
+  async function handleSignUp({
     email,
     password,
-    password_confirm,
     name
   }: FormDataProps) {
-    console.log(email)
+    try {
+      setLoading(true)
+
+      await api.post("/users", { name, email, password })
+      await signIn(email, password);
+
+    } catch (error) {
+      setLoading(false)
+      const isAppError = error instanceof AppError
+      const title = isAppError ? error.message : "Erro ao cadastrar";
+      return Toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500',
+      });
+    }
   }
 
   return (
@@ -143,6 +177,7 @@ export function SignUp() {
 
           <Button title="Criar e acessar"
             onPress={handleSubmit(handleSignUp)}
+            isLoading={loading}
           />
         </Center>
 
