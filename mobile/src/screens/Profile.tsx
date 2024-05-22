@@ -2,7 +2,15 @@ import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
 import { UserPhoto } from "@components/UserPhoto";
-import { Center, ScrollView, VStack, Skeleton, Text, Heading, useToast } from "native-base";
+import {
+  Center,
+  ScrollView,
+  VStack,
+  Skeleton,
+  Text,
+  Heading,
+  useToast
+} from "native-base";
 import { useState } from "react";
 import { Alert, TouchableOpacity } from "react-native";
 
@@ -35,9 +43,10 @@ export function Profile() {
       });
 
       if (!photoSelected.canceled) {
-        const photoInfo = await FileSystem.getInfoAsync(photoSelected.assets[0].uri) as FileInfo;
-        
-        if(photoInfo.size && (photoInfo.size / 1024 / 1024) > 5) {
+        const photoInfo = await
+          FileSystem.getInfoAsync(photoSelected.assets[0].uri) as FileInfo;
+
+        if (photoInfo.size && (photoInfo.size / 1024 / 1024) > 5) {
           return toast.show({
             title: "Imagem muito grande!",
             description: "Escolha uma imagem menor que 5MB",

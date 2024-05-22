@@ -27,7 +27,9 @@ export function Home() {
 
     } catch (error) {
       const isAppError = error instanceof AppError;
-      const title = isAppError ? error.message : 'Não foi possível carregar os grupos musculares';
+      const title = isAppError ?
+        error.message :
+        'Não foi possível carregar os grupos musculares';
 
       Toast.show({
         title,
@@ -47,7 +49,9 @@ export function Home() {
 
     } catch (error) {
       const isAppError = error instanceof AppError;
-      const title = isAppError ? error.message : 'Não foi possível carregar os exercícios';
+      const title = isAppError
+        ? error.message :
+        'Não foi possível carregar os exercícios';
 
       Toast.show({
         title,
