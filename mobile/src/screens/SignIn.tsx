@@ -1,4 +1,12 @@
-import { VStack, Image, Text, Center, Heading, ScrollView, Toast } from "native-base"
+import {
+  VStack,
+  Image,
+  Text,
+  Center,
+  Heading,
+  ScrollView,
+  Toast
+} from "native-base"
 import { useNavigation } from "@react-navigation/native"
 
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes"
@@ -38,7 +46,9 @@ export function SignIn() {
     } catch (error) {
       const isAppError = error instanceof AppError
 
-      const title = isAppError ? error.message : "Erro ao fazer login, tente novamente mais tarde."
+      const title = isAppError ?
+        error.message :
+        "Erro ao fazer login, tente novamente mais tarde."
 
       Toast.show({
         title: title,
@@ -113,7 +123,11 @@ export function SignIn() {
             )}
           />
 
-          <Button title="Acessar" onPress={handleSubmit(handleSignIn)} isLoading={isLoading} />
+          <Button
+            title="Acessar"
+            onPress={handleSubmit(handleSignIn)}
+            isLoading={isLoading}
+          />
         </Center>
 
         <Center px={10} flex={1} justifyContent="flex-end" mb={6}>

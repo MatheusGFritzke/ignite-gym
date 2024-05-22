@@ -40,7 +40,9 @@ export function History() {
           </Heading>
         )}
         px={8}
-        contentContainerStyle={exercises.length === 0 && { flex: 1, justifyContent: "center" }}
+        contentContainerStyle={
+          exercises.length === 0 && { flex: 1, justifyContent: "center" }
+        }
         ListEmptyComponent={() => (
           <Text
             color="gray.100"

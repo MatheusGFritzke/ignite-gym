@@ -46,7 +46,11 @@ export function SignUp() {
 
   const { signIn } = useAuth()
 
-  const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<FormDataProps>({
     defaultValues: {
       name: "",
       email: "",
