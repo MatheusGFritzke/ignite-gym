@@ -1,62 +1,46 @@
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
-import { HStack, Heading, Image, Text, VStack, Icon } from "native-base";
-import { Entypo } from "@expo/vector-icons";
-import { ExercisesDTO } from "@dtos/ExercisesDTO";
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { Heading, HStack, Image, Text, VStack, Icon } from 'native-base';
 
-import { api } from "@services/api";
+import { Entypo } from '@expo/vector-icons';
+
+import { api } from '@services/api';
+
+import { ExerciseDTO } from '@dtos/ExerciseDTO';
 
 type Props = TouchableOpacityProps & {
-  data: ExercisesDTO
-}
+  data: ExerciseDTO;
+};
 
 export function ExerciseCard({ data, ...rest }: Props) {
   return (
     <TouchableOpacity {...rest}>
-      <HStack
-        mt={4}
-        bg="gray.500"
-        alignItems="center"
-        p={2}
-        pr={4}
-        rounded="md"
-      >
-        <Image
-          mr={4}
-          source={{
-            uri: `${api.defaults.baseURL}exercise/thumb/${data.thumb}`
-          }}
+      <HStack bg="gray.500" alignItems="center" p={2} pr={4} rounded="md" mb={3}>
+        <Image 
+          source={{ uri: `${api.defaults.baseURL}/exercise/thumb/${data.thumb}` }}
           alt="Imagem do exercício"
           w={16}
           h={16}
           rounded="md"
-          resizeMode="cover"
+          mr={4}
+          resizeMode="center"
         />
+
         <VStack flex={1}>
-          <Heading
-            fontSize="lg"
-            color="white"
-            fontFamily="heading"
-          >
+          <Heading fontSize="lg" color="white" fontFamily="heading">
             {data.name}
           </Heading>
 
-          <Text
-            fontSize="sm"
-            color="gray.200"
-            mt={1}
-            numberOfLines={2}
-          >
+          <Text fontSize="sm" color="gray.200" mt={1} numberOfLines={2}>
             {data.series} séries x {data.repetitions} repetições
           </Text>
         </VStack>
 
-        <Icon
+        <Icon 
           as={Entypo}
           name="chevron-thin-right"
           color="gray.300"
         />
-
       </HStack>
     </TouchableOpacity>
-  )
+  );
 }

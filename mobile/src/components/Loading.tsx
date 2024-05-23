@@ -1,4 +1,4 @@
-import { Spinner, Center } from "native-base";
+import { Center, Spinner } from 'native-base';
 
 export function Loading() {
   return (
